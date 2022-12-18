@@ -39,7 +39,7 @@ def _main() -> None:
                 pkg = pkg[:pkg.index("[")]
 
             out.append(f"{full_pkg}=={outdated[pkg]}" if pkg in outdated else s)
-    
+
     if original == out:
         print("No changes needed, everything appears to be up to date.")
     elif args.d:
