@@ -31,7 +31,7 @@ def _main() -> None:
     for s in (original := args.r.read_text().splitlines()):
         if not s:
             continue
-        elif s.startswith("-"):
+        elif s.startswith(("-", "#")):
             out.append(s)
         else:
             pkg = full_pkg = s.split("==")[0]
