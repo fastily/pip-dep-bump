@@ -8,6 +8,9 @@ from os import environ
 from pathlib import Path
 from shlex import split
 
+_PU = "pip install -U"
+_DEFAULT_PKGS = {'pip', 'setuptools'}
+
 
 def _main() -> None:
     """Main driver, invoked when this module is invoked directly."""
@@ -40,13 +43,21 @@ def _main() -> None:
 
             out.append(f"{full_pkg}=={outdated[pkg]}" if pkg in outdated else s)
 
-    if original == out:
+    default_pkgs_outdated = not _DEFAULT_PKGS.isdisjoint(outdated.keys())
+
+    if original == out and not default_pkgs_outdated:
         print("No changes needed, everything appears to be up to date.")
     elif args.d:
         print("\n".join(out))
+
+        if default_pkgs_outdated:
+            print(f"----\nDefault virtualenv packages would be updated: {_DEFAULT_PKGS}")
     else:
+        if default_pkgs_outdated:
+            subprocess.run(split(f"{_PU} {' '.join(_DEFAULT_PKGS)}'"))
+
         args.r.write_text("\n".join(out))
-        subprocess.run(split(f"pip install -U -r '{args.r}'"))
+        subprocess.run(split(f"{_PU} -r '{args.r}'"))
 
 
 if __name__ == "__main__":
