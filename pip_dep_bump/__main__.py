@@ -16,7 +16,7 @@ def _main() -> None:
     """Main driver, invoked when this module is invoked directly."""
 
     cli_parser = ArgumentParser(description="pip-dep-bump CLI")
-    cli_parser.add_argument('-r', type=Path, metavar="requirements.txt", default=Path("./requirements.txt"), help="The requirements.txt file to work off of. Default is ./requirements.json")
+    cli_parser.add_argument('-r', type=Path, metavar="requirements.txt", default=Path("./requirements.txt"), help="The requirements.txt file to work off of. Default is ./requirements.txt")
     cli_parser.add_argument('-d', action='store_true', help="Dry run, print contents of new requriements.txt")
 
     args = cli_parser.parse_args()
@@ -54,7 +54,7 @@ def _main() -> None:
             print(f"----\nDefault virtualenv packages would be updated: {_DEFAULT_PKGS}")
     else:
         if default_pkgs_outdated:
-            subprocess.run(split(f"{_PU} {' '.join(_DEFAULT_PKGS)}'"))
+            subprocess.run(split(f"{_PU} {' '.join(_DEFAULT_PKGS)}"))
 
         args.r.write_text("\n".join(out))
         subprocess.run(split(f"{_PU} -r '{args.r}'"))
