@@ -9,11 +9,11 @@ Bumps requirements.txt deps and updates them in the current virtualenv
 pip install pip-dep-bump
 ```
 
-Also installs a CLI alias called `pdb` which can be used to invoke the program directly
+👉 Installs a CLI alias called `pdb` which can be used to invoke the program directly
 
 ## Usage
 ```
-usage: __main__.py [-h] [-r requirements.txt] [-d]
+usage: pdb [-h] [-r requirements.txt] [-d]
 
 pip-dep-bump CLI
 
