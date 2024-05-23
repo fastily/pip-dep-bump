@@ -28,7 +28,7 @@ def _main() -> None:
         print("Not in a virtualenv, doing nothing.")
         return
 
-    outdated = {d["name"]: d["latest_version"] for d in json.loads(subprocess.run(split("pip list --outdated --not-required --format json"), capture_output=True).stdout.decode())}
+    outdated = {d["name"]: d["latest_version"] for d in json.loads(subprocess.run(split("pip list -o --format json"), capture_output=True).stdout.decode())}
 
     out = []
     for s in (original := args.r.read_text().splitlines()):
